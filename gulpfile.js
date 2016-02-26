@@ -13,5 +13,5 @@ g.task('build:polymerLib', function(){
 });
 
 g.task('default',function () {
-	g.watch('elements.html',['build:polymerLib']);
+	g.watch(['elements.html', 'src/ex-list.html'],['build:polymerLib']);
 });

@@ -19,6 +19,11 @@
     "polymer": "Polymer/polymer#^1.3.0",
     "iron-list": "PolymerElements/iron-list#^1.2.6",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
-    "iron-ajax": "PolymerElements/iron-ajax#^1.1.1"
+    "iron-ajax": "PolymerElements/iron-ajax#^1.1.1",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.4",
+    "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.4",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.7",
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.0.6"
   }
 }
