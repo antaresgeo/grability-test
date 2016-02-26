@@ -1,0 +1,23 @@
+{
+  "name": "Grability-test",
+  "description": "Prueba Front End para grability.com",
+  "main": "index.html",
+  "authors": [
+    "Cristian Trujillo"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "http://www.grability.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.3.0",
+    "iron-list": "PolymerElements/iron-list#^1.2.6",
+    "neon-elements": "PolymerElements/neon-elements#^1.0.0"
+  }
+}
