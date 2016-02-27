@@ -12849,6 +12849,85 @@ Polymer({
         }
       }
     });
+/** @polymerBehavior */
+  Polymer.PaperSpinnerBehavior = {
+
+    listeners: {
+      'animationend': '__reset',
+      'webkitAnimationEnd': '__reset'
+    },
+
+    properties: {
+      /**
+       * Displays the spinner.
+       */
+      active: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        observer: '__activeChanged'
+      },
+
+      /**
+       * Alternative text content for accessibility support.
+       * If alt is present, it will add an aria-label whose content matches alt when active.
+       * If alt is not present, it will default to 'loading' as the alt value.
+       */
+      alt: {
+        type: String,
+        value: 'loading',
+        observer: '__altChanged'
+      },
+
+      __coolingDown: {
+        type: Boolean,
+        value: false
+      }
+    },
+
+    __computeContainerClasses: function(active, coolingDown) {
+      return [
+        active || coolingDown ? 'active' : '',
+        coolingDown ? 'cooldown' : ''
+      ].join(' ');
+    },
+
+    __activeChanged: function(active, old) {
+      this.__setAriaHidden(!active);
+      this.__coolingDown = !active && old;
+    },
+
+    __altChanged: function(alt) {
+      // user-provided `aria-label` takes precedence over prototype default
+      if (alt === this.getPropertyInfo('alt').value) {
+        this.alt = this.getAttribute('aria-label') || alt;
+      } else {
+        this.__setAriaHidden(alt==='');
+        this.setAttribute('aria-label', alt);
+      }
+    },
+
+    __setAriaHidden: function(hidden) {
+      var attr = 'aria-hidden';
+      if (hidden) {
+        this.setAttribute(attr, 'true');
+      } else {
+        this.removeAttribute(attr);
+      }
+    },
+
+    __reset: function() {
+      this.active = false;
+      this.__coolingDown = false;
+    }
+  };
+Polymer({
+      is: 'paper-spinner',
+
+      behaviors: [
+        Polymer.PaperSpinnerBehavior
+      ]
+    });
 /**
    * Use `Polymer.NeonAnimationBehavior` to implement an animation.
    * @polymerBehavior
@@ -12936,7 +13015,7 @@ Polymer({
 //# sourceMappingURL=web-animations-next-lite.min.js.map
 Polymer({
 
-    is: 'slide-up-animation',
+    is: 'up-slide',
 
     behaviors: [
       Polymer.NeonAnimationBehavior
@@ -12944,16 +13023,25 @@ Polymer({
 
     configure: function(config) {
       var node = config.node;
-
+     console.log('ok', config);
       if (config.transformOrigin) {
         this.setPrefixedProperty(node, 'transformOrigin', config.transformOrigin);
       } else {
         this.setPrefixedProperty(node, 'transformOrigin', '50% 0');
       }
+        
 
       this._effect = new KeyframeEffect(node, [
         {'transform': 'translate(0)'},
-        {'transform': 'translateY(-100%)'}
+        {'transform': 'translateY(5%)'},
+        {'transform': 'translate(0)'},
+        {'transform': 'translateY(10%)'},
+        {'transform': 'translate(0)'},
+        {'transform': 'translateY(-100%)'},
+        {'transform': 'translateY(-105%)'},
+        {'transform': 'translateY(-100%)'},
+        {'transform': 'translateY(-95%)'},
+        {'transform': 'translateY(-100%)'}  
       ], this.timingFromConfig(config));
 
       return this._effect;
@@ -13246,11 +13334,11 @@ Polymer({
                     value: function () {
                         return {
                             'entry': {
-                                name: 'slide-up-animation',
+                                name: 'up-slide',
                                 node: this,
                                 timing: {
-                                    duration: 1000,
-                                    easing: 'cubic-bezier(0.65, 0.79, 0.72, 1.25)'
+                                    duration: 1500,
+                                    easing: 'ease-in'
                                 }
                             }
                         }
@@ -13261,12 +13349,12 @@ Polymer({
                 'neon-animation-finish': '_onAnimationFinish'
             },
             ready: function () {
+                window.pol = this;
                 this.flag1 = true;
                 this.playAnimation('entry');
             },
             _onAnimationFinish: function () {
-                console.log('ok', this.flag1);
-                if(this.flag1){
+                if (this.flag1) {
                     this.$.php.style.top = '0';
                 }
             }

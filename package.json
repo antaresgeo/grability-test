@@ -1,5 +1,5 @@
 {
-  "name": "Grability-test",
+  "name": "grability-test",
   "version": "0.0.1",
   "description": "Prueba Front End para grability.com ",
   "main": "gulpfile.js",
@@ -10,9 +10,18 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "~3.9.1",
+    "gulp-crisper": "~1.0.0",
+    "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "~1.2.0",
-    "gulp-vulcanize": "~6.1.0",
     "gulp-sass": "~2.2.0",
-    "gulp-crisper": "~1.0.0"
-  }
+    "gulp-vulcanize": "~6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ctrujillozt/grability-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ctrujillozt/grability-test/issues"
+  },
+  "homepage": "https://github.com/ctrujillozt/grability-test#readme"
 }

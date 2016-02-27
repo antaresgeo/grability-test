@@ -6,7 +6,9 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/neon-animation/animations/slide-up-animation.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+
+<link rel="import" href="up-slide.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
 
 <dom-module id="ex-list">
@@ -31,11 +33,34 @@
                 border-radius: 7px 7px 0 0;
             }
         </style>
+        <iron-ajax id="ajax" url="../news_mock.json" handle-as="json" loading="{{loading}}" last-response="{{news}}" auto></iron-ajax>
         <paper-header-panel id="php" class="flex">
             <paper-toolbar>
                 <paper-icon-button icon="menu"></paper-icon-button>
                 <div class="title">Grability</div>
             </paper-toolbar>
+
+            <iron-list id="list" items="{{news}}" as="item" scroll-target="html" selection-enabled multi-selection>
+                <template>
+                    <div>
+                        <div tabindex$="[[tabIndex]]">
+                            <iron-image class="avatar" sizing="contain" src="[[item.image]]"></iron-image>
+                            <div class="pad">
+                                <div class="primary">[[item.title]]</div>
+                                <div class="shortText">[[item.shortText]]</div>
+                                <div class="longText">[[item.longText]]</div>
+                            </div>
+                            <iron-icon icon="menu"></iron-icon>
+                        </div>
+                    </div>
+                </template>
+            </iron-list>
+
+            <!--
+            <div class="loadingIndicator">
+                <paper-spinner active="{{loading}}"></paper-spinner> Fetching data
+            </div>
+-->
         </paper-header-panel>
     </template>
     <script>
@@ -53,11 +78,11 @@
                     value: function () {
                         return {
                             'entry': {
-                                name: 'slide-up-animation',
+                                name: 'up-slide',
                                 node: this,
                                 timing: {
-                                    duration: 1000,
-                                    easing: 'cubic-bezier(0.65, 0.79, 0.72, 1.25)'
+                                    duration: 1500,
+                                    easing: 'ease-in'
                                 }
                             }
                         }
@@ -68,12 +93,12 @@
                 'neon-animation-finish': '_onAnimationFinish'
             },
             ready: function () {
+                window.pol = this;
                 this.flag1 = true;
                 this.playAnimation('entry');
             },
             _onAnimationFinish: function () {
-                console.log('ok', this.flag1);
-                if(this.flag1){
+                if (this.flag1) {
                     this.$.php.style.top = '0';
                 }
             }
