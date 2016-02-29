@@ -2060,52 +2060,202 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   </dom-module>
-<dom-module id="ex-list" assetpath="src/">
 
-    <template>
-        <style>
-            :host {
-                display: block;
-                width: 100%;
-                height: 100%;
-                @apply(--paper-font-common-base);
-            }
-            
-            :host paper-header-panel {
-                background: white;
-                border-radius: 7px 7px 0 0;
-                padding-bottom: 100px;
-                top: 99%;
-            }
-            
-            :host paper-toolbar {
-                border-radius: 7px 7px 0 0;
-            }
-        </style>
-        <iron-ajax id="ajax" url="../news_mock.json" handle-as="json" loading="{{loading}}" last-response="{{news}}" auto=""></iron-ajax>
-        <paper-header-panel id="php" class="flex">
-            <paper-toolbar>
-                <paper-icon-button icon="menu"></paper-icon-button>
-                <div class="title">Grability</div>
-            </paper-toolbar>
 
-            <iron-list id="list" items="{{news}}" as="item" scroll-target="html" selection-enabled="" multi-selection="">
-                <template>
-                    <div>
-                        <div tabindex$="[[tabIndex]]">
-                            <iron-image class="avatar" sizing="contain" src="[[item.image]]"></iron-image>
-                            <div class="pad">
-                                <div class="primary">[[item.title]]</div>
-                                <div class="shortText">[[item.shortText]]</div>
-                                <div class="longText">[[item.longText]]</div>
-                            </div>
-                            <iron-icon icon="menu"></iron-icon>
-                        </div>
-                    </div>
-                </template>
-            </iron-list>
+<dom-module id="paper-item-shared-styles" assetpath="bower_components/paper-item/">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+        min-height: var(--paper-item-min-height, 48px);
+        padding: 0px 16px;
+      }
 
-            
-        </paper-header-panel>
-    </template>
-    </dom-module></div></body></html>
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      :host(.iron-selected) {
+        font-weight: var(--paper-item-selected-weight, bold);
+
+        @apply(--paper-item-selected);
+      }
+
+      :host([disabled]) {
+        color: var(--paper-item-disabled-color, --disabled-text-color);
+
+        @apply(--paper-item-disabled);
+      }
+
+      :host(:focus) {
+        position: relative;
+        outline: 0;
+
+        @apply(--paper-item-focused);
+      }
+
+      :host(:focus):before {
+        @apply(--layout-fit);
+
+        background: currentColor;
+        content: '';
+        opacity: var(--dark-divider-opacity);
+        pointer-events: none;
+
+        @apply(--paper-item-focused-before);
+      }
+    </style>
+  </template>
+</dom-module>
+
+
+<dom-module id="paper-icon-item" assetpath="bower_components/paper-item/">
+  <template>
+    <style include="paper-item-shared-styles"></style>
+    <style>
+      :host {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-item);
+        @apply(--paper-icon-item);
+      }
+
+      .content-icon {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+
+        width: var(--paper-item-icon-width, 56px);
+        @apply(--paper-item-icon);
+      }
+    </style>
+
+    <div id="contentIcon" class="content-icon">
+      <content select="[item-icon]"></content>
+    </div>
+    <content></content>
+  </template>
+
+  </dom-module>
+
+
+<dom-module id="paper-item-body" assetpath="bower_components/paper-item/">
+  <template>
+    <style>
+      :host {
+        overflow: hidden; /* needed for text-overflow: ellipsis to work on ff */
+        @apply(--layout-vertical);
+        @apply(--layout-center-justified);
+        @apply(--layout-flex);
+      }
+
+      :host([two-line]) {
+        min-height: var(--paper-item-body-two-line-min-height, 72px);
+      }
+
+      :host([three-line]) {
+        min-height: var(--paper-item-body-three-line-min-height, 88px);
+      }
+
+      :host > ::content > * {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      :host > ::content [secondary] {
+        @apply(--paper-font-body1);
+
+        color: var(--paper-item-body-secondary-color, --secondary-text-color);
+
+        @apply(--paper-item-body-secondary);
+      }
+    </style>
+
+    <content></content>
+  </template>
+
+  </dom-module>
+
+
+<dom-module id="iron-collapse" assetpath="bower_components/iron-collapse/">
+
+  <style>
+
+    :host {
+      display: block;
+      transition-duration: 300ms;
+      overflow: visible;
+    }
+
+    :host(.iron-collapse-closed) {
+      display: none;
+    }
+
+    :host(:not(.iron-collapse-opened)) {
+      overflow: hidden;
+    }
+
+  </style>
+
+  <template>
+
+    <content></content>
+
+  </template>
+
+</dom-module>
+
+<dom-module id="iron-image" assetpath="bower_components/iron-image/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+      }
+
+      #sizedImgDiv {
+        @apply(--layout-fit);
+
+        display: none;
+      }
+
+      #img {
+        display: block;
+        width: var(--iron-image-width, auto);
+        height: var(--iron-image-height, auto);
+      }
+
+      :host([sizing]) #sizedImgDiv {
+        display: block;
+      }
+
+      :host([sizing]) #img {
+        display: none;
+      }
+
+      #placeholder {
+        @apply(--layout-fit);
+
+        background-color: inherit;
+        opacity: 1;
+
+        @apply(--iron-image-placeholder);
+      }
+
+      #placeholder.faded-out {
+        transition: opacity 0.5s linear;
+        opacity: 0;
+      }
+    </style>
+
+    <div id="sizedImgDiv" role="img" hidden$="[[_computeImgDivHidden(sizing)]]" aria-hidden$="[[_computeImgDivARIAHidden(alt)]]" aria-label$="[[_computeImgDivARIALabel(alt, src)]]"></div>
+    <img id="img" alt$="[[alt]]" hidden$="[[_computeImgHidden(sizing)]]">
+    <div id="placeholder" hidden$="[[_computePlaceholderHidden(preload, fade, loading, loaded)]]" class$="[[_computePlaceholderClassName(preload, fade, loading, loaded)]]"></div>
+  </template>
+
+  </dom-module>
+</div></body></html>
