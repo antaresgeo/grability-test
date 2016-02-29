@@ -9,14 +9,14 @@ g.task('build:polymerLib', function () {
             inlineCss: true,
         }))
         .pipe(g.$.crisper())
-        .pipe(g.dest('src/libs'))
+        .pipe(g.dest('../libs'));
 });
 
-g.task('html', function () {
-    g.src('./src/*.html')
-        .pipe(g.$.livereload.changed());
-});
+g.task('cp', function(){
+    g.src(['bower_components/webcomponentsjs/webcomponents-lite.min.js'])
+        .pipe(g.dest('../libs'));
+})
 
-g.task('default', function () {
-    g.watch(['elements.html', 'src/ex-list.html'], ['build:polymerLib']);
+g.task('default', ['cp','build:polymerLib'],function () {
+    g.watch('elements.html', ['cp','build:polymerLib']);
 });
