@@ -1,12 +1,14 @@
 # Grability Test
 
-Para llevar a cabo prueba para desarrollador UI Web de [Grability inc](http://www.grability.com/), decidi utilizar el framework [polymer 1.0](https://www.polymer-project.org/1.0/) basado en [Web Components](http://webcomponents.org/) y Herramientas de  Desarrollo que corren sobre [Node.js](https://nodejs.org/en/) tales como [Gulp](http://gulpjs.com/) y [bower](http://bower.io/), en este repository se muestra el resultado final de utilizar todas estas tecnoligias pero les dejo una pequeña gia de como instalar las herramientas de desarrollo que he utilizado ubicadas en la carpeta que he llamado `build_system`.   
+Para llevar a cabo prueba para desarrollador UI Web de [Grability inc](http://www.grability.com/), decidi utilizar el framework [polymer 1.0](https://www.polymer-project.org/1.0/) basado en [Web Components](http://webcomponents.org/) y Herramientas de  Desarrollo que corren sobre [Node.js](https://nodejs.org/en/) tales como [Gulp](http://gulpjs.com/) y [Bower](http://bower.io/), en este repository se muestra el resultado final de utilizar todas estas tecnoligias pero les dejo una pequeña gia de como instalar las herramientas de desarrollo que he utilizado ubicadas en la carpeta que he llamado `build_system`.
+
+Puede ver la prueba [aqui][http://ctrujillozt.github.io/grability-test/]
 
 ## Instalacion de Herramientas de Desarrollo
 
 ### node.js
 
-para instalar [node.js](https://nodejs.org/en/) segir las instruciones dadas en en su pagina web segun su sistema operativo.
+para instalar [node.js](https://nodejs.org/en/) segir las instruciones dadas en su pagina web segun su sistema operativo.
 
 ### bower
 
