@@ -56,10 +56,10 @@ con el comando ```gulp``` se correran observers que ejecutaran automaticamente l
 
 ## Referencias
 
-+[Polymer 1.0](https://www.polymer-project.org/1.0/)
-+[Web Components](http://webcomponents.org/)
-+[Node.js](https://nodejs.org/en/)
-+[Gulp](http://gulpjs.com/)
-+[Bower](http://bower.io/)
-+[Vulcanize](https://github.com/sindresorhus/gulp-vulcanize)
-+[Crisper](https://github.com/ragingwind/gulp-crisper)
++ [Polymer 1.0](https://www.polymer-project.org/1.0/)
++ [Web Components](http://webcomponents.org/)
++ [Node.js](https://nodejs.org/en/)
++ [Gulp](http://gulpjs.com/)
++ [Bower](http://bower.io/)
++ [Vulcanize](https://github.com/sindresorhus/gulp-vulcanize)
++ [Crisper](https://github.com/ragingwind/gulp-crisper)
