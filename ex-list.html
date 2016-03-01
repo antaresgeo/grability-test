@@ -95,7 +95,7 @@
         transition: all 1s;
       }
     </style>
-    <iron-ajax id="ajax" url="news_mock.json" handle-as="json" loading="{{loading}}" last-response="{{news}}"></iron-ajax>
+    <iron-ajax id="ajax" url="[[url]]" handle-as="json" loading="{{loading}}" last-response="{{news}}"></iron-ajax>
     <paper-header-panel id="php" class="flex">
       <paper-toolbar>
         <paper-icon-button icon="menu" on-tap="_charge"></paper-icon-button>
@@ -127,11 +127,11 @@
           </div>
         </template>
       </iron-list>
-      <!--
+
             <div class="loadingIndicator">
-                <paper-spinner active></paper-spinner> Fetching data
+                <paper-spinner active></paper-spinner>
             </div>
--->
+
     </paper-header-panel>
   </template>
   <script>
@@ -145,10 +145,7 @@
           type: Boolean,
           value: false
         },
-        flag2: {
-          type: Boolean,
-          value: false
-        },
+        url: String,
         newTitle: {
           type: String,
           value: 'Grability'

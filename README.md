@@ -4,6 +4,16 @@ Para llevar a cabo prueba para desarrollador UI Web de [Grability inc](http://ww
 
 Puede ver la prueba [aqui][http://ctrujillozt.github.io/grability-test/]
 
+para cambiar la configuracion del servicio json que se recibe deben cambiar en `index.html` el parametro `url` de la etiqueta `ex-list`
+
+```html
+<body class="fullbleed layout vertical center-center">
+    <div id="sheet">
+        <ex-list url="news_mock.json"></ex-list>
+    </div>
+</body>
+```
+
 ## Instalacion de Herramientas de Desarrollo
 
 ### node.js
