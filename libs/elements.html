@@ -22,7 +22,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><meta charset="UTF-8"></head><body><div hidden="" by-vulcanize=""><dom-module id="iron-list" assetpath="bower_components/iron-list/">
+--><meta charset="UTF-8"></head><body><div hidden="" by-vulcanize=""><dom-module id="iron-list" assetpath="build_system/bower_components/iron-list/">
   <template>
     <style>
       :host {
@@ -904,7 +904,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </style>
 
 
-<dom-module id="paper-toolbar" assetpath="bower_components/paper-toolbar/">
+<dom-module id="paper-toolbar" assetpath="build_system/bower_components/paper-toolbar/">
   <template>
     <style>
       :host {
@@ -1092,7 +1092,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </dom-module>
 
 
-<dom-module id="paper-header-panel" assetpath="bower_components/paper-header-panel/">
+<dom-module id="paper-header-panel" assetpath="build_system/bower_components/paper-header-panel/">
   <template>
     <style>
       :host {
@@ -1224,7 +1224,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </dom-module>
 
 
-<dom-module id="iron-icon" assetpath="bower_components/iron-icon/">
+<dom-module id="iron-icon" assetpath="build_system/bower_components/iron-icon/">
 
   <style>
     :host {
@@ -1549,7 +1549,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <g id="zoom-out"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z"></path></g>
 </defs></svg>
 </iron-iconset-svg>
-<dom-module id="paper-ripple" assetpath="bower_components/paper-ripple/">
+<dom-module id="paper-ripple" assetpath="build_system/bower_components/paper-ripple/">
 
   
 
@@ -1625,7 +1625,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="waves"></div>
   </template>
 </dom-module>
-<dom-module id="paper-icon-button" assetpath="bower_components/paper-icon-button/">
+<dom-module id="paper-icon-button" assetpath="build_system/bower_components/paper-icon-button/">
   <template strip-whitespace="">
     <style>
       :host {
@@ -1675,7 +1675,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   </dom-module>
-<dom-module id="paper-spinner-styles" assetpath="bower_components/paper-spinner/">
+<dom-module id="paper-spinner-styles" assetpath="build_system/bower_components/paper-spinner/">
   <template>
     <style>
       /*
@@ -2012,7 +2012,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 
-<dom-module id="paper-spinner" assetpath="bower_components/paper-spinner/">
+<dom-module id="paper-spinner" assetpath="build_system/bower_components/paper-spinner/">
   <template>
     <style include="paper-spinner-styles"></style>
 
@@ -2062,7 +2062,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </dom-module>
 
 
-<dom-module id="paper-item-shared-styles" assetpath="bower_components/paper-item/">
+<dom-module id="paper-item-shared-styles" assetpath="build_system/bower_components/paper-item/">
   <template>
     <style>
       :host {
@@ -2110,7 +2110,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 
-<dom-module id="paper-icon-item" assetpath="bower_components/paper-item/">
+<dom-module id="paper-icon-item" assetpath="build_system/bower_components/paper-item/">
   <template>
     <style include="paper-item-shared-styles"></style>
     <style>
@@ -2141,7 +2141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </dom-module>
 
 
-<dom-module id="paper-item-body" assetpath="bower_components/paper-item/">
+<dom-module id="paper-item-body" assetpath="build_system/bower_components/paper-item/">
   <template>
     <style>
       :host {
@@ -2180,7 +2180,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </dom-module>
 
 
-<dom-module id="iron-collapse" assetpath="bower_components/iron-collapse/">
+<dom-module id="iron-collapse" assetpath="build_system/bower_components/iron-collapse/">
 
   <style>
 
@@ -2208,7 +2208,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </dom-module>
 
-<dom-module id="iron-image" assetpath="bower_components/iron-image/">
+<dom-module id="paper-menu-shared-styles" assetpath="build_system/bower_components/paper-menu/">
+  <template>
+    <style>
+      /* need a wrapper element to make this higher specificity than the :host rule in paper-item */
+      .selectable-content > ::content > .iron-selected {
+        font-weight: bold;
+
+        @apply(--paper-menu-selected-item);
+      }
+
+      .selectable-content > ::content > [disabled] {
+        color: var(--paper-menu-disabled-color, --disabled-text-color);
+      }
+
+      .selectable-content > ::content > *:focus {
+        position: relative;
+        outline: 0;
+
+        @apply(--paper-menu-focused-item);
+      }
+
+      .selectable-content > ::content > *:focus:after {
+        @apply(--layout-fit);
+        background: currentColor;
+        opacity: var(--dark-divider-opacity);
+        content: '';
+        pointer-events: none;
+
+        @apply(--paper-menu-focused-item-after);
+      }
+
+      .selectable-content > ::content > *[colored]:focus:after {
+        opacity: 0.26;
+      }
+    </style>
+  </template>
+</dom-module>
+
+
+<dom-module id="paper-menu" assetpath="build_system/bower_components/paper-menu/">
+  <template>
+    <style include="paper-menu-shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 0;
+
+        background: var(--paper-menu-background-color, --primary-background-color);
+        color: var(--paper-menu-color, --primary-text-color);
+
+        @apply(--paper-menu);
+      }
+    </style>
+
+    <div class="selectable-content">
+      <content></content>
+    </div>
+  </template>
+
+  </dom-module>
+<dom-module id="iron-image" assetpath="build_system/bower_components/iron-image/">
   <template>
     <style>
       :host {

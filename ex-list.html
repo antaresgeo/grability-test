@@ -1,216 +1,247 @@
 <link rel="import" href="libs/elements.html">
 <dom-module id="ex-list">
-    <template>
-        <style>
-            :host {
-                display: block;
-                width: 100%;
-                height: 100%;
-                @apply(--paper-font-common-base);
-            }
-            
-            :host paper-header-panel {
-                background: white;
-                border-radius: 7px 7px 0 0;
-                padding-bottom: 100px;
-                top: 99%;
-            }
-            
-            :host paper-icon-item {
-                background: white;
-            }
-            
-            :host paper-toolbar {
-                border-radius: 7px 7px 0 0;
-            }
-            
-            iron-list {
-                @apply(--layout-fit);
-                --iron-list-items-container: {
-                    margin: 0 auto;
-                    margin-top: 60px;
-                    margin-bottom: 60px;
-                    border-bottom: 1px solid #ddd;
-                }
-                ;
-            }
-            
-            .item {
-                transition: all .5s;
-            }
-            
-            .avatar {
-                display: inline-block;
-                box-sizing: border-box;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background-color: var(--paper-amber-500);
-            }
-            
-            .avatar iron-image {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background-color: white;
-            }
-            
-            .collapse {
-                padding: 7px 7px 7px 70px
-            }
-            
-            .collapse .img {
-                float: left;
-                padding: 7px 7px 7px 0;
-            }
-            
-            .collapse .content {
-                padding: 7px;
-                text-align: justify;
-            }
-            
-            .collapse .img iron-image {
-                width: 100px;
-                height: 100px;
-                background-color: white;
-                border: solid 1px black;
-            }
-            .ccontent{
-                opacity: 0;
-                transition: opacity 1s;
-                transition-delay: .8s;
-            }
-            
-            .ccontent.selected{
-                opacity: 1;
-            }
-            #headTitle{
-                display: inline-block;
-            }
-        </style>
-        <iron-ajax id="ajax" url="news_mock.json" handle-as="json" loading="{{loading}}" last-response="{{news}}" auto></iron-ajax>
-        <paper-header-panel id="php" class="flex">
-            <paper-toolbar>
-                <paper-icon-button icon="menu"></paper-icon-button>
-                <div class="title"><span id="headTitle">{{newTitle}}</span></div>
-            </paper-toolbar>
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        @apply(--paper-font-common-base);
+      }
 
-            <iron-list id="list" class="flex" items="{{news}}" as="item" selection-enabled>
-                <template>
-                    <div class$="[[getClassForItem(index, item, selected)]]">
-                        <paper-icon-item>
-                            <div class="avatar" item-icon>
-                                <iron-image alt="[[item.title]]" sizing="cover" preload fade src="[[item.image]]"></iron-image>
-                            </div>
-                            <paper-item-body two-line>
-                                <div>[[item.title]]</div>
-                                <div secondary>[[item.content]]</div>
-                            </paper-item-body>
-                        </paper-icon-item>
-                        <iron-collapse class="collapse" index$="[[index]]">
-                            <div class$="[[_collapseSelected(selected)]]" index$="[[index]]">
-                                <div class="img">
-                                    <iron-image alt="[[item.title]]" sizing="cover" preload fade src="[[item.image]]"></iron-image>
-                                </div>
-                                <div class="content">[[item.content]]</div>
-                            </div>
-                        </iron-collapse>
-                    </div>
-                </template>
-            </iron-list>
-            <!--
+      :host paper-header-panel {
+        background: white;
+        border-radius: 7px 7px 0 0;
+        padding-bottom: 100px;
+        top: 99%;
+      }
+
+      :host paper-icon-item {
+        background: white;
+      }
+
+      :host paper-toolbar {
+        border-radius: 7px 7px 0 0;
+      }
+
+      iron-list {
+        @apply(--layout-fit);
+        --iron-list-items-container: {
+          margin: 0 auto;
+          /*margin-top: 60px;*/
+          margin-bottom: 60px;
+          border-bottom: 1px solid #ddd;
+        }
+        ;
+      }
+
+      [tx="new"] {
+        left: -100%;
+        transition: all .5s ease-in;
+      }
+
+      .item {
+        left: 0;
+      }
+
+      .avatar {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--paper-amber-500);
+      }
+
+      .avatar iron-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+      }
+
+      .collapse {
+        padding: 7px 7px 7px 70px
+      }
+
+      .collapse .img {
+        float: left;
+        padding: 7px 7px 7px 0;
+      }
+
+      .collapse .content {
+        padding: 7px;
+        text-align: justify;
+      }
+
+      .collapse .img iron-image {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+        border: solid 1px black;
+      }
+
+      .ccontent {
+        opacity: 0;
+        transition: opacity 1s;
+        transition-delay: .8s;
+      }
+
+      .ccontent.selected {
+        opacity: 1;
+      }
+
+      #headTitle {
+        transition: all 1s;
+      }
+    </style>
+    <iron-ajax id="ajax" url="news_mock.json" handle-as="json" loading="{{loading}}" last-response="{{news}}"></iron-ajax>
+    <paper-header-panel id="php" class="flex">
+      <paper-toolbar>
+        <paper-icon-button icon="menu" on-tap="_charge"></paper-icon-button>
+        <div class="title">
+          <span id="headTitle">{{newTitle}}</span>
+        </div>
+      </paper-toolbar>
+
+      <iron-list id="list" class="flex" items="{{news}}" as="item" selection-enabled>
+        <template>
+          <div class$="[[_itemSelected(selected, item, index)]]" tx="new">
+            <paper-icon-item>
+              <div class="avatar" item-icon>
+                <iron-image alt="[[item.title]]" sizing="cover" preload fade src="[[item.image]]"></iron-image>
+              </div>
+              <paper-item-body two-line>
+                <div>[[item.title]]</div>
+                <div secondary>[[item.content]]</div>
+              </paper-item-body>
+            </paper-icon-item>
+            <iron-collapse class="collapse" index$="[[index]]">
+              <div class$="[[_collapseSelected(selected)]]" index$="[[index]]">
+                <div class="img">
+                  <iron-image alt="[[item.title]]" sizing="cover" preload fade src="[[item.image]]"></iron-image>
+                </div>
+                <div class="content">[[item.content]]</div>
+              </div>
+            </iron-collapse>
+          </div>
+        </template>
+      </iron-list>
+      <!--
             <div class="loadingIndicator">
                 <paper-spinner active></paper-spinner> Fetching data
             </div>
 -->
-        </paper-header-panel>
-    </template>
-    <script>
-        Polymer({
-            is: 'ex-list',
-            behaviors: [
-                Polymer.NeonAnimationRunnerBehavior
-            ],
-            properties: {
-                flag1: {
-                    type: Boolean,
-                    value: false
-                },
-                flag2: {
-                    type: Boolean,
-                    value: false
-                },
-                newTitle: {
-                    type: String,
-                    value: 'Grability'
-                },
-                animationConfig: {
-                    value: function () {
-                        return {
-                            'entry': {
-                                name: 'up-slide',
-                                node: this,
-                                timing: {
-                                    duration: 1500,
-                                    easing: 'ease-in'
-                                }
-                            },
-                            'exitTitle': {
-                                name: 'slide-from-right-animation',
-                                node: this.$.headTitle,
-                                timing: {
-                                    duration: 1500,
-                                    easing: 'ease-in'
-                                }
-                            },
-                            'entryTitle': {
-                                name: 'slide-up-animation',
-                                node: this.$.headTitle,
-                                timing: {
-                                    duration: 1500,
-                                    easing: 'ease-in'
-                                }
-                            }
-                        }
-                    }
+    </paper-header-panel>
+  </template>
+  <script>
+    Polymer({
+      is: 'ex-list',
+      behaviors: [
+        Polymer.NeonAnimationRunnerBehavior
+      ],
+      properties: {
+        flag1: {
+          type: Boolean,
+          value: false
+        },
+        flag2: {
+          type: Boolean,
+          value: false
+        },
+        newTitle: {
+          type: String,
+          value: 'Grability'
+        },
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                name: 'up-slide',
+                node: this,
+                timing: {
+                  duration: 1500,
+                  easing: 'ease-in'
                 }
-            },
-            listeners: {
-                'neon-animation-finish': '_onAnimationFinish',
-                'ex-new-title-change': '_titleChange'
-            },
-            ready: function () {
-                window.pol = this;
-                this.flag1 = true;
-                this.playAnimation('entry');
-            },
-            _onAnimationFinish: function () {
-                if (this.flag1) {
-                    this.$.php.style.top = '0';
+              },
+              'exit': {
+                name: 'down-slide',
+                node: this,
+                timing: {
+                  duration: 1500,
+                  easing: 'ease-in'
                 }
-            },
-            _collapseSelected: function(selected){
-                console.log(selected)
-                return selected? 'ccontent selected': 'ccontent'; 
-            },
-            _titleChange:function(){
-                this.playAnimation('entryTitle');
-            },
-            getClassForItem: function (index, item, selected) {
-                var aux = this.$.list.querySelector('.collapse[index="' + index + '"]');
-                if (selected) {
-                    this.playAnimation('exitTitle');
-                    
-                    aux.show();
-                    return 'item selected';
-                } else {
-                    if (aux) {
-                        aux.hide();
-                    }
-                    return 'item';
-                }
+              },
             }
+          }
+        }
+      },
+      listeners: {
+        'neon-animation-finish': '_onAnimationFinish',
+        'item-selected': '_onItemSelected'
+      },
+      ready: function() {
+        window.pol = this;
+        this.playAnimation('entry', 'entry');
+      },
+      _charge: function() {
+        if(this.flag1){
+          this.playAnimation('exit', 'exit');
+          setTimeout(function () {
+            var res = confirm('fin de la prueba');
+            if(res || !res){
+              window.location = "https://github.com/ctrujillozt/grability-test/"
+            }
+          }, 3000);
+        }else{
+          this.flag1 = true;
+          this.$.ajax.generateRequest();
+        }
+      },
+      _onAnimationFinish: function(e, ani) {
+        switch (ani) {
+          case 'entry':
+            this.$.php.style.top = '0';
+            break;
+          case 'exit':
+            this.$.php.style.top = '99%';
+            break;
+        }
+        if (this.flag1) {
 
+        }
+      },
+      _itemLoad: function(e) {
+        console.log(e);
+      },
+      _collapseSelected: function(selected) {
+        return selected ? 'ccontent selected' : 'ccontent';
+      },
+      _titleChange: function() {
+        this.playAnimation('entryTitle');
+      },
+      _itemSelected: function(selected, item, index) {
+        this.fire('item-selected', {
+          's': selected,
+          'item': item,
+          'index': index
         });
-    </script>
+        return selected ? 'item selected' : 'item';
+      },
+      _onItemSelected: function(e) {
+        var aux = this.$.list.querySelector('.collapse[index="' + e.detail.index + '"]');
+        if (e.detail.s) {
+          this.newTitle = e.detail.item.title;
+          setTimeout(function() {
+            aux.show();
+          }, 500);
+        } else {
+          if (aux) {
+            aux.hide();
+          }
+        }
+      }
+
+    });
+  </script>
 </dom-module>

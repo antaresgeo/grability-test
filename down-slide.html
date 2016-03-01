@@ -10,7 +10,7 @@
 
   Polymer({
 
-    is: 'up-slide',
+    is: 'down-slide',
 
     behaviors: [
       Polymer.NeonAnimationBehavior
@@ -25,15 +25,15 @@
       }
       this._effect = new KeyframeEffect(node, [
         {'transform': 'translate(0)'},
-        {'transform': 'translateY(5%)'},
+        {'transform': 'translateY(-5%)'},
         {'transform': 'translate(0)'},
-        {'transform': 'translateY(10%)'},
+        {'transform': 'translateY(-10%)'},
         {'transform': 'translate(0)'},
-        {'transform': 'translateY(-100%)'},
-        {'transform': 'translateY(-105%)'},
-        {'transform': 'translateY(-100%)'},
-        {'transform': 'translateY(-95%)'},
-        {'transform': 'translateY(-100%)'}
+        {'transform': 'translateY(100%)'},
+        {'transform': 'translateY(105%)'},
+        {'transform': 'translateY(100%)'},
+        {'transform': 'translateY(95%)'},
+        {'transform': 'translateY(100%)'}
       ], this.timingFromConfig(config));
 
       return this._effect;
